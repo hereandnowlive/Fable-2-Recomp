@@ -174,9 +174,11 @@ hotfunc_yield_every = 1
 # back to back with no work in between, it sleeps this long per yield
 # instead. The game's frame limiter, which busy-waits for the rest of every
 # frame, sleeps the same amount between polls. 0 = never sleep (original
-# behaviour). Leave commented out to use the platform default.
-# Default: 0 on Windows, 100 elsewhere
-# idle_yield_sleep_us = 100
+# behaviour). On Windows the shortest sleep is about 500 microseconds, so
+# smaller values behave like 500 there; on Windows older than 10 version 1803
+# the setting has no effect.
+# Default: 100
+idle_yield_sleep_us = 100
 )TOML_EOF";
 
 std::string_view TypeName(toml::node_type t) {

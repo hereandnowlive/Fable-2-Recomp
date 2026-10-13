@@ -134,8 +134,9 @@ Notes:
   from an unscaled 1280x720 image, and a captured frame still looked soft, so
   on Vulkan it probably does not sharpen the final picture yet.
 - The game's threads wait for each other, and for the end of each frame, by
-  busy-polling, which pins CPU cores at 100% even at the menu. On Linux those
-  polls sleep 100 microseconds at a time instead. `idle_yield_sleep_us` under
+  busy-polling, which pins CPU cores at 100% even at the menu. Those polls
+  sleep 100 microseconds at a time instead (about 500 on Windows, the
+  shortest sleep available there). `idle_yield_sleep_us` under
   `[perf]` in `fable2_config.toml` changes the sleep; 0 restores the spin.
 - Frame rate is limited by the renderer's single GPU-command thread. With
   the 30 fps lock removed and no cap, a detailed outdoor area measured 72 to

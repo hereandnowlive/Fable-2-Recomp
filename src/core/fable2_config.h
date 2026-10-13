@@ -105,12 +105,9 @@ struct Values {
   // back with no work in between (it is polling for another thread), sleep
   // this many microseconds per yield instead of spinning a core at 100%
   // (see src/core/hotfunc/hotfunc_yield.h). 0 = never sleep (original).
-  // Off by default on Windows, where a sub-millisecond sleep is not available.
-#ifdef _WIN32
-  int32_t idle_yield_sleep_us = 0;
-#else
+  // Windows sleeps in steps of about 500 us whatever the value
+  // (see src/core/hotfunc/hotfunc_idle_sleep.h).
   int32_t idle_yield_sleep_us = 100;
-#endif
 };
 
 // Load the config from `path`.
